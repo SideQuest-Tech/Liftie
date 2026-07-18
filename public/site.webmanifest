@@ -1,0 +1,16 @@
+{
+  "name": "Liftie",
+  "short_name": "liftie",
+  "description": "Verified commute sharing for work and campus.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050806",
+  "theme_color": "#050806",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

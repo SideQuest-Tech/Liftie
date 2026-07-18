@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#050806"/>
+  <g opacity=".12" stroke="#F7FAF8">
+    <path d="M0 110h1200M0 220h1200M0 330h1200M0 440h1200M0 550h1200"/>
+    <path d="M120 0v630M320 0v630M520 0v630M720 0v630M920 0v630M1120 0v630"/>
+  </g>
+  <path d="M90 470C260 470 250 190 440 190s190 245 370 245 190-245 310-245" fill="none" stroke="#35F27B" stroke-width="9" stroke-linecap="round"/>
+  <g fill="#050806" stroke="#35F27B" stroke-width="7">
+    <circle cx="90" cy="470" r="16"/><circle cx="440" cy="190" r="16"/><circle cx="810" cy="435" r="16"/><circle cx="1120" cy="190" r="16"/>
+  </g>
+  <text x="88" y="140" fill="#F7FAF8" font-family="Arial, sans-serif" font-weight="700" font-size="96">liftie</text>
+  <text x="92" y="545" fill="#A7F3C0" font-family="Arial, sans-serif" font-size="34">The verified corridor</text>
+</svg>
