@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useId, useRef, type ReactNode } from "react";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 
 type ModalProps = {
@@ -9,12 +9,16 @@ type ModalProps = {
   title: string;
   description: string;
   children: ReactNode;
+  eyebrow?: string;
+  closeLabel?: string;
 };
 
 const focusableSelector =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-export function Modal({ open, onClose, title, description, children }: ModalProps) {
+export function Modal({ open, onClose, title, description, children, eyebrow = "Initial network registration", closeLabel = "Close registration" }: ModalProps) {
+  const titleId = useId();
+  const descriptionId = useId();
   const dialogRef = useRef<HTMLDivElement>(null);
   const previousFocus = useRef<HTMLElement | null>(null);
   const reducedMotion = useReducedMotion();
@@ -80,8 +84,8 @@ export function Modal({ open, onClose, title, description, children }: ModalProp
             className="modal-dialog"
             role="dialog"
             aria-modal="true"
-            aria-labelledby="join-modal-title"
-            aria-describedby="join-modal-description"
+            aria-labelledby={titleId}
+            aria-describedby={descriptionId}
             initial={reducedMotion ? false : { opacity: 0, y: 20, scale: 0.985 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reducedMotion ? undefined : { opacity: 0, y: 12, scale: 0.99 }}
@@ -89,18 +93,18 @@ export function Modal({ open, onClose, title, description, children }: ModalProp
           >
             <div className="modal-heading">
               <div>
-                <span className="eyebrow">Initial network registration</span>
-                <h2 id="join-modal-title">{title}</h2>
-                <p id="join-modal-description">{description}</p>
+                <span className="eyebrow">{eyebrow}</span>
+                <h2 id={titleId}>{title}</h2>
+                <p id={descriptionId}>{description}</p>
               </div>
               <button
                 type="button"
                 className="modal-close"
-                aria-label="Close registration"
+                aria-label={closeLabel}
                 onClick={onClose}
               >
                 <X aria-hidden="true" />
-                <span className="sr-only">Close registration</span>
+                <span className="sr-only">{closeLabel}</span>
               </button>
             </div>
             {children}

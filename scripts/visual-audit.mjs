@@ -237,6 +237,161 @@ async function main() {
 
     await evaluate(
       cdp,
+      `(() => {
+        document.documentElement.style.scrollBehavior = "auto";
+        document.querySelector(".phone-stage")?.scrollIntoView();
+        return true;
+      })()`,
+    );
+    await sleep(120);
+    const mobileProductTour = await screenshot(
+      cdp,
+      "mobile-390-product-tour.png",
+    );
+    const productTourInitial = await evaluate(
+      cdp,
+      `(() => {
+        const image = document.querySelector(".phone-screen-image");
+        const screen = document.querySelector(".phone-screen")?.getBoundingClientRect();
+        return {
+          imageCount: document.querySelectorAll(".phone-screen-image").length,
+          imageLoaded: Boolean(image?.complete && image?.naturalWidth),
+          imageSource: image?.getAttribute("src"),
+          selectorCount: document.querySelectorAll(".preview-tabs button").length,
+          selectedCount: document.querySelectorAll('.preview-tabs [aria-current="step"]').length,
+          counter: document.querySelector(".preview-counter")?.textContent.trim(),
+          fakeStatusRemoved: !document.querySelector(".phone-status, .phone-hardware"),
+          screenRatio: screen ? Number((screen.width / screen.height).toFixed(3)) : null
+        };
+      })()`,
+    );
+
+    await evaluate(
+      cdp,
+      `document.querySelectorAll(".preview-tabs button")[2]?.click(); true`,
+    );
+    await waitForExpression(
+      cdp,
+      `document.querySelector(".phone-screen-image")?.complete === true`,
+    );
+    const selectorTourState = await evaluate(
+      cdp,
+      `(() => ({
+        counter: document.querySelector(".preview-counter")?.textContent.trim(),
+        source: document.querySelector(".phone-screen-image")?.getAttribute("src"),
+        title: document.querySelector("#preview-screen-title")?.textContent.trim()
+      }))()`,
+    );
+    await evaluate(cdp, `document.querySelector(".product-preview")?.focus(); true`);
+    await cdp.send("Input.dispatchKeyEvent", {
+      type: "keyDown",
+      key: "ArrowRight",
+      code: "ArrowRight",
+    });
+    await cdp.send("Input.dispatchKeyEvent", {
+      type: "keyUp",
+      key: "ArrowRight",
+      code: "ArrowRight",
+    });
+    await sleep(80);
+    const keyboardTourCounter = await evaluate(
+      cdp,
+      `document.querySelector(".preview-counter")?.textContent.trim()`,
+    );
+
+    await cdp.send("Emulation.setTouchEmulationEnabled", {
+      enabled: true,
+      maxTouchPoints: 5,
+    });
+    const phoneTouchPoints = await evaluate(
+      cdp,
+      `(() => {
+        const rect = document.querySelector(".phone-screen")?.getBoundingClientRect();
+        return rect ? {
+          startX: Math.round(rect.right - 24),
+          endX: Math.round(rect.left + 24),
+          y: Math.round(rect.top + rect.height / 2)
+        } : null;
+      })()`,
+    );
+    if (phoneTouchPoints) {
+      await cdp.send("Input.dispatchTouchEvent", {
+        type: "touchStart",
+        touchPoints: [
+          {
+            x: phoneTouchPoints.startX,
+            y: phoneTouchPoints.y,
+          },
+        ],
+      });
+      await cdp.send("Input.dispatchTouchEvent", {
+        type: "touchMove",
+        touchPoints: [
+          {
+            x: phoneTouchPoints.endX,
+            y: phoneTouchPoints.y,
+          },
+        ],
+      });
+      await cdp.send("Input.dispatchTouchEvent", {
+        type: "touchEnd",
+        touchPoints: [],
+      });
+    }
+    await sleep(80);
+    const swipeTourCounter = await evaluate(
+      cdp,
+      `document.querySelector(".preview-counter")?.textContent.trim()`,
+    );
+
+    await evaluate(
+      cdp,
+      `document.querySelectorAll(".preview-controls button")[0]?.click(); true`,
+    );
+    await sleep(60);
+    const previousTourCounter = await evaluate(
+      cdp,
+      `document.querySelector(".preview-counter")?.textContent.trim()`,
+    );
+    await evaluate(
+      cdp,
+      `document.querySelectorAll(".preview-controls button")[1]?.click(); true`,
+    );
+    await sleep(60);
+    const nextTourCounter = await evaluate(
+      cdp,
+      `document.querySelector(".preview-counter")?.textContent.trim()`,
+    );
+
+    const appScreenChecks = [];
+    for (let index = 0; index < 8; index += 1) {
+      await evaluate(
+        cdp,
+        `document.querySelectorAll(".preview-tabs button")[${index}]?.click(); true`,
+      );
+      await waitForExpression(
+        cdp,
+        `document.querySelector(".phone-screen-image")?.complete === true`,
+      );
+      appScreenChecks.push(
+        await evaluate(
+          cdp,
+          `(() => {
+            const image = document.querySelector(".phone-screen-image");
+            return {
+              index: ${index + 1},
+              source: image?.getAttribute("src"),
+              loaded: Boolean(image?.naturalWidth && image?.naturalHeight),
+              width: image?.naturalWidth,
+              height: image?.naturalHeight
+            };
+          })()`,
+        ),
+      );
+    }
+
+    await evaluate(
+      cdp,
       `document.querySelector(".menu-button")?.click(); true`,
     );
     await sleep(260);
@@ -354,7 +509,7 @@ async function main() {
     await setViewport(cdp, 1440, 1000);
     await cdp.send("Page.navigate", { url: baseUrl });
     await waitForExpression(cdp, `Boolean(document.querySelector("h1"))`);
-    await sleep(400);
+    await sleep(1200);
     await evaluate(cdp, "document.fonts.ready.then(() => true)", true);
     await evaluate(
       cdp,
@@ -375,13 +530,26 @@ async function main() {
     const heroBackground = await evaluate(
       cdp,
       `(() => {
-        const photo = document.querySelector(".hero-photo");
+        const photo = document.querySelector(".commuter-window img");
         return {
-          imageLoaded: getComputedStyle(photo).backgroundImage.includes("liftie-hero-commute.jpg"),
-          matchPanelRemoved: !document.querySelector(".corridor-visual"),
-          coversHero: photo?.getBoundingClientRect().height === document.querySelector(".hero")?.getBoundingClientRect().height
+          imageLoaded: Boolean(photo?.complete && photo?.naturalWidth),
+          source: photo?.getAttribute("src"),
+          codeNativeArch: Boolean(document.querySelector(".road-arch path")),
+          heroPhoneLoaded: Boolean(document.querySelector(".hero-phone-wrap img")?.naturalWidth),
+          copy: document.querySelector("h1")?.textContent,
+          noRasterReference: ![...document.images].some(image => /green commute route|green arch|mobile commuter journey/.test(image.src))
         };
       })()`,
+    );
+
+    await evaluate(
+      cdp,
+      `document.querySelector(".phone-stage")?.scrollIntoView(); true`,
+    );
+    await sleep(80);
+    const desktopProductTour = await screenshot(
+      cdp,
+      "desktop-1440-product-tour.png",
     );
 
     await evaluate(
@@ -464,7 +632,7 @@ async function main() {
     );
 
     const responsiveWidths = [];
-    for (const width of [320, 360, 375, 390, 430, 768, 1024, 1280, 1440]) {
+    for (const width of [320, 360, 375, 390, 414, 768, 1024, 1280, 1440, 1920]) {
       await setViewport(cdp, width, width < 700 ? 844 : 900);
       await evaluate(cdp, "window.scrollTo(0, 0); true");
       await sleep(40);
@@ -504,7 +672,91 @@ async function main() {
       })()`,
     );
 
+    const extendedChecks = {};
+    extendedChecks.anchorTargets = await evaluate(cdp, `(() => [...document.querySelectorAll('a[href^="#"]')].map(a => a.getAttribute('href')).filter(href => !document.getElementById(href.slice(1))))()`);
+    await setViewport(cdp, 1440, 1000);
+    await evaluate(cdp, `window.scrollTo(0,0); document.querySelector('.header-actions .sign-in')?.click(); true`);
+    await sleep(250);
+    extendedChecks.signIn = await evaluate(cdp, `Boolean(document.querySelector('[role="dialog"] .account-access'))`);
+    await cdp.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Escape', code: 'Escape' });
+    await sleep(250);
+    await waitForExpression(cdp, `!document.querySelector('[role="dialog"]')`);
+    extendedChecks.signInCleanup = await evaluate(cdp, `document.body.style.overflow !== 'hidden'`);
+    await setViewport(cdp, 390, 844);
+    await evaluate(cdp, `document.querySelector('.menu-button')?.click(); true`);
+    await sleep(250);
+    await evaluate(cdp, `document.querySelector('#mobile-navigation a[href="#riders"]')?.click(); true`);
+    await sleep(250);
+    extendedChecks.menuSelection = await evaluate(cdp, `!document.querySelector('#mobile-navigation') && document.body.style.overflow !== 'hidden' && location.hash === '#riders'`);
+    await evaluate(cdp, `document.querySelector('.menu-button')?.click(); true`);
+    await sleep(250);
+    await setViewport(cdp, 1280, 900);
+    await sleep(250);
+    extendedChecks.menuResizeCleanup = await evaluate(cdp, `!document.querySelector('#mobile-navigation') && document.body.style.overflow !== 'hidden'`);
+    await evaluate(cdp, `document.querySelector('.whitelist-form button[type="submit"]')?.click(); true`);
+    await sleep(100);
+    extendedChecks.whitelistValidationErrors = await evaluate(cdp, `document.querySelectorAll('.whitelist-form .field-error').length`);
+    await evaluate(cdp, `(() => {
+      const update = (name, value) => {
+        const element = document.querySelector('.whitelist-form [name="' + name + '"]');
+        const proto = element instanceof HTMLSelectElement ? HTMLSelectElement.prototype : HTMLInputElement.prototype;
+        Object.getOwnPropertyDescriptor(proto, 'value').set.call(element, value);
+        element.dispatchEvent(new Event('input', {bubbles:true}));
+        element.dispatchEvent(new Event('change', {bubbles:true}));
+      };
+      Object.entries({organisationName:'Audit Organisation',organisationType:'Company or employer',domain:'organisation.co.za',fullName:'Audit Commuter',workEmail:'audit@organisation.co.za',role:'Operations',commuters:'Fewer than 100',city:'Johannesburg'}).forEach(([name,value]) => update(name,value));
+      document.querySelector('.whitelist-form [name="consent"]')?.click();
+      return true;
+    })()`);
+    await sleep(100);
+    await evaluate(cdp, `document.querySelector('.whitelist-form button[type="submit"]')?.click(); true`);
+    await sleep(200);
+    extendedChecks.whitelistSubmission = await evaluate(cdp, `document.querySelector('.whitelist-form .submission-message')?.textContent.trim()`);
+    const sectionScreenshots = {};
+    extendedChecks.sectionImages = [];
+    for (const selector of ['.reality-section','#riders','#drivers','#safety','.wallet-section','.site-footer']) {
+      await evaluate(cdp, `document.querySelector(${JSON.stringify(selector)})?.scrollIntoView(); true`);
+      await sleep(600);
+      await evaluate(cdp, `Promise.all([...document.querySelectorAll(${JSON.stringify(selector + ' img')})].map(img => img.decode().catch(() => {}))).then(() => true)`, true);
+      extendedChecks.sectionImages.push(await evaluate(cdp, `([...document.querySelectorAll(${JSON.stringify(selector + ' img')})].map(img => ({src:img.getAttribute('src'),loaded:img.complete && img.naturalWidth > 0,loading:img.loading})))`));
+      sectionScreenshots[selector] = await screenshot(cdp, 'desktop-' + selector.replace(/[^a-z]/g,'') + '.png');
+    }
+    const landscape = [];
+    for (const [width,height] of [[667,375],[844,390]]) {
+      await setViewport(cdp,width,height);
+      await evaluate(cdp, 'window.scrollTo(0,0); true');
+      await sleep(100);
+      landscape.push(await evaluate(cdp, `({width:${width},height:${height},overflow:document.documentElement.scrollWidth > innerWidth})`));
+      await screenshot(cdp, 'landscape-' + width + '.png');
+    }
+    extendedChecks.landscape = landscape;
+    await cdp.send('Emulation.setEmulatedMedia', {features:[{name:'prefers-reduced-motion',value:'reduce'}]});
+    extendedChecks.reducedMotion = await evaluate(cdp, `({enabled:matchMedia('(prefers-reduced-motion: reduce)').matches,routeAnimation:getComputedStyle(document.querySelector('.commute-route path')).animationName})`);
+    await cdp.send('Emulation.setEmulatedMedia', {features:[]});
+    await setViewport(cdp,390,844);
+    await evaluate(cdp, `window.scrollTo(0, document.querySelector('.commute-scene').getBoundingClientRect().top + scrollY - 90); true`);
+    await sleep(1200);
+    sectionScreenshots.mobileScene = await screenshot(cdp, 'mobile-390-scene.png');
+    await setViewport(cdp,768,1024);
+    await evaluate(cdp, 'window.scrollTo(0,0); true');
+    await sleep(500);
+    sectionScreenshots.tabletHero = await screenshot(cdp, 'tablet-768-hero.png');
+    extendedChecks.sectionScreenshots = sectionScreenshots;
+    const failures = [];
+    if (browserErrors.length) failures.push('Browser console errors');
+    if (responsiveWidths.some(item => item.overflow) || extendedChecks.landscape.some(item => item.overflow)) failures.push('Responsive overflow');
+    if (mobileMetrics.deadLinks || extendedChecks.anchorTargets.length) failures.push('Missing link destinations');
+    if (accessibilityReferences.missingLabelledBy.length || accessibilityReferences.missingControls.length || accessibilityReferences.unnamedButtonCount) failures.push('Accessibility references');
+    if (!extendedChecks.signIn || !extendedChecks.signInCleanup || !extendedChecks.menuSelection || !extendedChecks.menuResizeCleanup) failures.push('Navigation cleanup');
+    if (!menuCloseState.closed || !menuCloseState.bodyUnlocked || !menuCloseState.focusRestored) failures.push('Menu keyboard cleanup');
+    if (!modalState.open || validationErrorCount === 0 || extendedChecks.whitelistValidationErrors === 0) failures.push('Form validation');
+    if (extendedChecks.sectionImages.flat().some(img => !img.loaded) || appScreenChecks.some(img => !img.loaded)) failures.push('Product images failed to load');
+    if (extendedChecks.reducedMotion.routeAnimation !== 'none') failures.push('Reduced motion');
+    if (!heroBackground.codeNativeArch || !heroBackground.imageLoaded || !heroBackground.heroPhoneLoaded) failures.push('Hero assets');
     const result = {
+      passed: failures.length === 0,
+      failures,
+      extendedChecks,
       mobileMetrics,
       desktopMetrics,
       modalState,
@@ -519,6 +771,13 @@ async function main() {
       accessibilityReferences,
       functionalChecks: {
         heroBackground,
+        productTourInitial,
+        selectorTourState,
+        keyboardTourCounter,
+        swipeTourCounter,
+        previousTourCounter,
+        nextTourCounter,
+        appScreenChecks,
         calculatorChecks,
         routeChecks,
         selectedRoute,
@@ -530,15 +789,18 @@ async function main() {
       screenshots: {
         mobileHero,
         mobileFull,
+        mobileProductTour,
         mobileMenu,
         mobileModal,
         desktopHero,
+        desktopProductTour,
         desktopPricing,
         desktopOrganisations,
         desktopFaq,
       },
     };
     process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
+    if (failures.length) process.exitCode = 1;
   } finally {
     cdp?.close();
     chrome?.kill();

@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Modal } from "../forms/Modal";
 import { navItems } from "../../data/content";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 import { useScrollSpy } from "../../hooks/useScrollSpy";
@@ -14,6 +15,9 @@ type HeaderProps = {
 export function Header({ onJoin }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [signInOpen, setSignInOpen] = useState(false);
+  const closeSignIn = useCallback(() => setSignInOpen(false), []);
+  const signInUrl = import.meta.env.VITE_LIFTIE_SIGN_IN_URL as string | undefined;
   const headerRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const reducedMotion = useReducedMotion();
@@ -67,8 +71,21 @@ export function Header({ onJoin }: HeaderProps) {
 
   const closeMenu = () => setMenuOpen(false);
 
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1100px)");
+    const onResize = () => { if (desktop.matches) setMenuOpen(false); };
+    desktop.addEventListener("change", onResize);
+    return () => desktop.removeEventListener("change", onResize);
+  }, []);
+
+  const signInAction = signInUrl ? (
+    <a className="button button-secondary sign-in" href={signInUrl} onClick={closeMenu}>Sign in</a>
+  ) : (
+    <Button variant="secondary" className="sign-in" onClick={() => { closeMenu(); setSignInOpen(true); }}>Sign in</Button>
+  );
+
   return (
-    <header
+    <><header
       ref={headerRef}
       className={`site-header ${scrolled || menuOpen ? "is-scrolled" : ""}`}
     >
@@ -77,7 +94,7 @@ export function Header({ onJoin }: HeaderProps) {
           <Logo />
         </a>
         <nav className="desktop-nav" aria-label="Main navigation">
-          {navItems.map((item) => (
+          {navItems.slice(0, 4).map((item) => (
             <a
               key={item.href}
               href={item.href}
@@ -88,9 +105,7 @@ export function Header({ onJoin }: HeaderProps) {
             </a>
           ))}
         </nav>
-        <Button className="header-cta" onClick={onJoin}>
-          Join the network
-        </Button>
+        <div className="header-actions">{signInAction}<Button className="header-cta" onClick={onJoin}>Join Liftie</Button></div>
         <button
           ref={menuButtonRef}
           type="button"
@@ -121,6 +136,7 @@ export function Header({ onJoin }: HeaderProps) {
                   {item.label}
                 </a>
               ))}
+              {signInAction}
               <Button
                 arrow
                 onClick={() => {
@@ -128,12 +144,15 @@ export function Header({ onJoin }: HeaderProps) {
                   onJoin();
                 }}
               >
-                Join the network
+                Join Liftie
               </Button>
             </div>
           </motion.nav>
         )}
       </AnimatePresence>
     </header>
+    <Modal open={signInOpen} onClose={closeSignIn} title="Your next commute starts here." eyebrow="Liftie account access" closeLabel="Close sign-in information" description="Sign-in is not connected to this website yet. You can register your interest in the Liftie network below.">
+      <div className="account-access"><Button arrow onClick={() => { closeSignIn(); onJoin(); }}>Join Liftie</Button></div>
+    </Modal></>
   );
 }

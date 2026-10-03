@@ -2,6 +2,7 @@ import { ArrowDown, ArrowRight, CarFront, UserRound } from "lucide-react";
 import { driverBenefits, riderBenefits } from "../../data/content";
 import type { CommuteRole } from "../forms/JoinNetworkModal";
 import { Button } from "../ui/Button";
+import { AppPhone } from "../product/AppPhone";
 
 type AudienceSectionsProps = {
   onJoin: (role: CommuteRole) => void;
@@ -28,6 +29,7 @@ export function AudienceSections({ onJoin }: AudienceSectionsProps) {
             </a>
           </div>
           <div className="audience-benefits">
+            <div className="audience-product"><AppPhone screen="weekly-commute" /></div>
             {riderBenefits.map((benefit, index) => {
               const Icon = benefit.icon;
               return (
@@ -65,6 +67,7 @@ export function AudienceSections({ onJoin }: AudienceSectionsProps) {
             </div>
           </div>
           <div className="audience-benefits driver-benefits">
+            <div className="audience-product"><AppPhone screen="driver-management" /></div>
             {driverBenefits.map((benefit, index) => {
               const Icon = benefit.icon;
               return (

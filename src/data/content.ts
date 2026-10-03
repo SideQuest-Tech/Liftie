@@ -15,8 +15,8 @@ import {
 
 export const navItems = [
   { label: "How it works", href: "#how-it-works" },
-  { label: "For riders", href: "#riders" },
-  { label: "For drivers", href: "#drivers" },
+  { label: "Riders", href: "#riders" },
+  { label: "Drivers", href: "#drivers" },
   { label: "Safety", href: "#safety" },
   { label: "Pricing", href: "#pricing" },
   { label: "Organisations", href: "#organisations" },

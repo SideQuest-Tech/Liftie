@@ -1,11 +1,5 @@
-import {
-  ArrowDownLeft,
-  ArrowRight,
-  Check,
-  Landmark,
-  LockKeyhole,
-  WalletCards,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { AppPhone } from "../product/AppPhone";
 import { SectionHeading } from "../ui/SectionHeading";
 
 const walletSteps = [
@@ -16,17 +10,17 @@ const walletSteps = [
   },
   {
     number: "02",
-    title: "Reserve",
+    title: "Points reserved",
     body: "When a journey is accepted, the required ride balance is reserved for that journey.",
   },
   {
     number: "03",
-    title: "Complete",
+    title: "Journey completed",
     body: "After the journey is completed, the relevant points move to the driver's cost-recovery balance.",
   },
   {
     number: "04",
-    title: "Withdraw",
+    title: "Driver credited",
     body: "Drivers will be able to request withdrawal into a supported South African bank account, subject to product terms and verification requirements.",
   },
 ] as const;
@@ -58,37 +52,9 @@ export function WalletSection() {
               </li>
             ))}
           </ol>
-          <div className="wallet-interface">
-            <div className="wallet-interface-top">
-              <div><span className="mono">WALLET PREVIEW</span><strong>Reserved ride balance</strong></div>
-              <WalletCards aria-hidden="true" />
-            </div>
-            <div className="wallet-total">
-              <span>Available points</span>
-              <strong>1,248.50</strong>
-              <small>Planned point balance</small>
-            </div>
-            <div className="wallet-reserved">
-              <LockKeyhole size={18} />
-              <div><strong>67.5 Points reserved</strong><span>Sandton to Hatfield, next weekday journey</span></div>
-              <span>Reserved</span>
-            </div>
-            <div className="wallet-ledger">
-              <div>
-                <span className="ledger-icon complete"><Check size={15} /></span>
-                <div><strong>Journey completed</strong><span>Previous corridor trip</span></div>
-                <strong>-67.5</strong>
-              </div>
-              <div>
-                <span className="ledger-icon"><ArrowDownLeft size={15} /></span>
-                <div><strong>Driver cost recovery</strong><span>Completed journey credit</span></div>
-                <strong>+67.5</strong>
-              </div>
-            </div>
-            <div className="wallet-local-options">
-              <Landmark size={18} />
-              <p><strong>Planned support for local payment options</strong><span>Card, Instant EFT, and Capitec Pay are examples under consideration, not active integrations.</span></p>
-            </div>
+          <div className="wallet-product">
+            <AppPhone screen="wallet" />
+            <p>Liftie wallet preview. Payment integrations are planned.</p>
           </div>
         </div>
       </div>

@@ -10,25 +10,33 @@
 }
 
 :root {
-  --liftie-black: #050806;
-  --liftie-ink: #0a0f0c;
-  --liftie-surface: #101712;
-  --liftie-surface-soft: #151e18;
-  --liftie-surface-lifted: #1a251d;
-  --liftie-green: #35f27b;
-  --liftie-green-bright: #68ff9b;
-  --liftie-green-muted: #a7f3c0;
-  --liftie-white: #f7faf8;
-  --liftie-text: #e9f0eb;
-  --liftie-muted: #99a69d;
-  --liftie-dim: #6f7b73;
-  --liftie-border: rgba(255, 255, 255, 0.1);
-  --liftie-border-strong: rgba(255, 255, 255, 0.18);
-  --liftie-green-soft: rgba(53, 242, 123, 0.1);
+  --liftie-canvas: #fafbf7;
+  --liftie-ink: #0c291b;
+  --liftie-ink-soft: #405448;
+  --liftie-green: #087c38;
+  --liftie-brand: #16ac4b;
+  --liftie-green-bright: #086c33;
+  --liftie-green-muted: #176c3a;
+  --liftie-green-dark: #06492f;
+  --liftie-mint: #e4f4e7;
+  --liftie-mint-strong: #c7e8cf;
+  --liftie-orange: #ff6b2c;
+  --liftie-orange-ink: #d94c13;
+  --liftie-black: var(--liftie-canvas);
+  --liftie-white: var(--liftie-ink);
+  --liftie-surface: #ffffff;
+  --liftie-surface-soft: #edf5ee;
+  --liftie-surface-lifted: #e4f4e7;
+  --liftie-text: #163426;
+  --liftie-muted: #526459;
+  --liftie-dim: #5b6d60;
+  --liftie-border: #dbe7dd;
+  --liftie-border-strong: #bbd1c0;
+  --liftie-green-soft: #e4f4e7;
   --page-gutter: clamp(1.25rem, 4vw, 4.5rem);
-  --section-space: clamp(5.5rem, 10vw, 10rem);
+  --section-space: clamp(4.5rem, 8vw, 8rem);
   --header-height: 4.75rem;
-  color-scheme: dark;
+  color-scheme: light;
   font-family: "Manrope Variable", "Segoe UI", sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -155,7 +163,7 @@ textarea {
 }
 
 .mono {
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.72rem;
   letter-spacing: 0.09em;
 }
@@ -166,7 +174,7 @@ textarea {
   gap: 0.65rem;
   margin-bottom: 1.15rem;
   color: var(--liftie-green-muted);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 0.11em;
@@ -191,7 +199,7 @@ textarea {
   margin-bottom: 1.35rem;
   color: var(--liftie-white);
   font-size: clamp(2.25rem, 5.6vw, 4.7rem);
-  font-weight: 560;
+  font-weight: 700;
   letter-spacing: -0.055em;
   line-height: 0.99;
 }
@@ -234,7 +242,7 @@ textarea {
   background: var(--liftie-green);
   box-shadow:
     inset 0 1px rgba(255, 255, 255, 0.42),
-    0 10px 30px rgba(53, 242, 123, 0.12);
+    0 10px 30px rgba(22, 172, 75, 0.12);
   color: #031107;
 }
 
@@ -243,7 +251,7 @@ textarea {
   background: var(--liftie-green-bright);
   box-shadow:
     inset 0 1px rgba(255, 255, 255, 0.5),
-    0 14px 34px rgba(53, 242, 123, 0.18);
+    0 14px 34px rgba(22, 172, 75, 0.18);
 }
 
 .button-primary:active:not(:disabled) {
@@ -259,7 +267,7 @@ textarea {
 
 .button-secondary:hover {
   transform: translateY(-2px);
-  border-color: rgba(53, 242, 123, 0.55);
+  border-color: rgba(22, 172, 75, 0.55);
   background: var(--liftie-surface);
 }
 
@@ -397,9 +405,9 @@ textarea {
   overflow-y: auto;
   border-top: 1px solid var(--liftie-border);
   background:
-    linear-gradient(rgba(53, 242, 123, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(53, 242, 123, 0.04) 1px, transparent 1px),
-    #070b08;
+    linear-gradient(rgba(22, 172, 75, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(22, 172, 75, 0.04) 1px, transparent 1px),
+    var(--liftie-canvas);
   background-size: 48px 48px;
 }
 
@@ -430,165 +438,12 @@ textarea {
   margin-top: 2rem;
 }
 
-/* Hero */
-
-.hero {
-  position: relative;
-  display: flex;
-  min-height: 100svh;
-  align-items: center;
-  overflow: hidden;
-  padding: calc(var(--header-height) + 3.5rem) 0 5rem;
-  background: var(--liftie-black);
-}
-
-.hero::before {
-  z-index: 1;
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 68px 68px;
-  content: "";
-  mask-image: linear-gradient(to bottom, black 0%, transparent 95%);
-  pointer-events: none;
-}
-
-.hero-photo {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  background-color: var(--liftie-black);
-  background-image: url("/liftie-hero-commute.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.hero-photo::after {
-  position: absolute;
-  inset: 0;
-  background: rgba(5, 8, 6, 0.22);
-  content: "";
-}
-
-.hero-grid {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  gap: 4rem;
-}
-
-.hero-copy {
-  max-width: 44rem;
-}
-
-.hero h1,
-.hero-lede,
-.hero-trust,
-.hero-qualifiers,
-.hero .eyebrow {
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.88);
-}
-
-.eyebrow-node {
-  width: 0.48rem;
-  height: 0.48rem;
-  border: 1px solid var(--liftie-green);
-  border-radius: 50%;
-  box-shadow: 0 0 0 4px rgba(53, 242, 123, 0.08);
-}
-
-.hero h1 {
-  max-width: 12ch;
-  margin-bottom: 1.5rem;
-  color: var(--liftie-white);
-  font-size: clamp(3.4rem, 12.6vw, 7.8rem);
-  font-weight: 540;
-  letter-spacing: -0.075em;
-  line-height: 0.88;
-}
-
-.hero h1 span {
-  color: var(--liftie-green);
-}
-
-.hero-lede {
-  max-width: 39rem;
-  margin-bottom: 2rem;
-  color: #b3beb6;
-  font-size: clamp(1.02rem, 1.8vw, 1.2rem);
-  line-height: 1.7;
-}
-
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.hero-actions .button {
-  width: 100%;
-}
-
-.hero-trust {
-  display: flex;
-  max-width: 36rem;
-  align-items: flex-start;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
-  color: var(--liftie-muted);
-}
-
-.hero-trust svg {
-  flex: 0 0 auto;
-  margin-top: 0.18rem;
-  color: var(--liftie-green-muted);
-}
-
-.hero-trust p {
-  margin: 0;
-  font-size: 0.82rem;
-  line-height: 1.6;
-}
-
-.hero-qualifiers {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.9rem 1.35rem;
-  margin-top: 1.75rem;
-  color: var(--liftie-dim);
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 0.66rem;
-  letter-spacing: 0.035em;
-  text-transform: uppercase;
-}
-
-.hero-qualifiers span {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.hero-qualifiers span:not(:first-child)::before {
-  width: 0.23rem;
-  height: 0.23rem;
-  border-radius: 50%;
-  background: var(--liftie-green);
-  content: "";
-}
-
-.hero-scroll-cue {
-  display: none;
-}
-
 /* Product distinction */
 
 .distinction {
   border-top: 1px solid var(--liftie-border);
   border-bottom: 1px solid var(--liftie-border);
-  background: #070b08;
+  background: var(--liftie-canvas);
 }
 
 .distinction h2 {
@@ -646,7 +501,7 @@ textarea {
 }
 
 .reality-intro .section-heading-copy p:first-child {
-  color: #c0cac3;
+  color: var(--liftie-ink-soft);
 }
 
 .comparison-key {
@@ -719,17 +574,17 @@ textarea {
 }
 
 .comparison-row > div:nth-child(3) {
-  border-color: rgba(53, 242, 123, 0.2);
+  border-color: rgba(22, 172, 75, 0.2);
   border-radius: 0 0 0.6rem 0.6rem;
-  background: rgba(53, 242, 123, 0.045);
-  color: #cfe3d5;
+  background: rgba(22, 172, 75, 0.045);
+  color: var(--liftie-ink-soft);
 }
 
 .mobile-comparison-label {
   display: block;
   margin-bottom: 0.45rem;
   color: var(--liftie-dim);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.6rem;
   letter-spacing: 0.07em;
   text-transform: uppercase;
@@ -744,7 +599,7 @@ textarea {
 .how-section {
   overflow: hidden;
   border-top: 1px solid var(--liftie-border);
-  background: #080d09;
+  background: var(--liftie-canvas);
 }
 
 .how-section::before {
@@ -753,11 +608,11 @@ textarea {
   right: -20%;
   width: 55rem;
   height: 55rem;
-  border: 1px solid rgba(53, 242, 123, 0.05);
+  border: 1px solid rgba(22, 172, 75, 0.05);
   border-radius: 50%;
   box-shadow:
-    0 0 0 8rem rgba(53, 242, 123, 0.012),
-    0 0 0 16rem rgba(53, 242, 123, 0.008);
+    0 0 0 8rem rgba(22, 172, 75, 0.012),
+    0 0 0 16rem rgba(22, 172, 75, 0.008);
   content: "";
 }
 
@@ -785,7 +640,7 @@ textarea {
 
 .journey-route path {
   fill: none;
-  stroke: rgba(53, 242, 123, 0.32);
+  stroke: rgba(22, 172, 75, 0.32);
   stroke-dasharray: 3 6;
   stroke-width: 2;
   vector-effect: non-scaling-stroke;
@@ -816,9 +671,9 @@ textarea {
   width: 2.3rem;
   height: 2.3rem;
   place-items: center;
-  border: 1px solid rgba(53, 242, 123, 0.3);
+  border: 1px solid rgba(22, 172, 75, 0.3);
   border-radius: 50%;
-  background: #0c130e;
+  background: var(--liftie-canvas);
   color: var(--liftie-green);
 }
 
@@ -849,7 +704,7 @@ textarea {
 .product-preview-section {
   overflow: hidden;
   background:
-    linear-gradient(100deg, #f4f7f5 0%, #f4f7f5 50%, #0a100c 50%, #0a100c 100%);
+    linear-gradient(100deg, #f4f7f5 0%, #f4f7f5 50%, var(--liftie-canvas) 50%, var(--liftie-canvas) 100%);
   color: #142018;
 }
 
@@ -969,8 +824,8 @@ textarea {
   overflow: hidden;
   padding: 4rem var(--page-gutter);
   background:
-    radial-gradient(circle at center, rgba(53, 242, 123, 0.11), transparent 45%),
-    #0a100c;
+    radial-gradient(circle at center, rgba(22, 172, 75, 0.11), transparent 45%),
+    var(--liftie-canvas);
 }
 
 .phone-route-backdrop {
@@ -987,7 +842,7 @@ textarea {
 
 .phone-route-backdrop path {
   fill: none;
-  stroke: rgba(53, 242, 123, 0.23);
+  stroke: rgba(22, 172, 75, 0.23);
   stroke-dasharray: 4 8;
   stroke-width: 2;
 }
@@ -1071,7 +926,7 @@ textarea {
   justify-content: space-between;
   padding: 0 0.35rem 1rem;
   color: #4d5b52;
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.52rem;
 }
 
@@ -1108,7 +963,7 @@ textarea {
 .phone-topline span,
 .wallet-heading span {
   color: #4d6655;
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.55rem;
   letter-spacing: 0.07em;
 }
@@ -1375,7 +1230,7 @@ textarea {
   border-radius: 50%;
   background: #d9e9dd;
   color: #265b39;
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.62rem;
 }
 
@@ -1398,7 +1253,7 @@ textarea {
 
 .match-score {
   color: #13753a;
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.75rem;
   font-weight: 500;
 }
@@ -1410,7 +1265,7 @@ textarea {
   margin-top: 1rem;
   border-radius: 0.7rem;
   padding: 1rem;
-  background: #101a13;
+  background: var(--liftie-canvas);
   color: white;
 }
 
@@ -1438,7 +1293,7 @@ textarea {
   margin-top: 0.2rem;
   border: 2px solid var(--liftie-green);
   border-radius: 50%;
-  background: #101a13;
+  background: var(--liftie-canvas);
 }
 
 .phone-route-card small {
@@ -1466,7 +1321,7 @@ textarea {
 }
 
 .phone-stat-grid strong {
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.65rem;
 }
 
@@ -1489,14 +1344,14 @@ textarea {
   margin-top: 1.6rem;
   border-radius: 0.75rem;
   padding: 1rem;
-  background: #101a13;
+  background: var(--liftie-canvas);
   color: white;
 }
 
 .wallet-balance strong {
   margin-block: 0.2rem;
   color: var(--liftie-green);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 1.65rem;
   font-weight: 500;
 }
@@ -1522,7 +1377,7 @@ textarea {
 
 .reserved-row > strong,
 .transaction > strong {
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.58rem;
 }
 
@@ -1583,14 +1438,14 @@ textarea {
 }
 
 .rider-section {
-  background: #050806;
+  background: var(--liftie-canvas);
 }
 
 .driver-section {
   border-top: 1px solid var(--liftie-border);
   background:
-    radial-gradient(circle at 18% 45%, rgba(53, 242, 123, 0.065), transparent 25rem),
-    #0b110d;
+    radial-gradient(circle at 18% 45%, rgba(22, 172, 75, 0.065), transparent 25rem),
+    var(--liftie-canvas);
 }
 
 .driver-route-motif {
@@ -1629,7 +1484,7 @@ textarea {
   height: 3rem;
   place-items: center;
   margin-bottom: 2rem;
-  border: 1px solid rgba(53, 242, 123, 0.25);
+  border: 1px solid rgba(22, 172, 75, 0.25);
   border-radius: 50%;
   background: var(--liftie-green-soft);
   color: var(--liftie-green);
@@ -1737,7 +1592,7 @@ textarea {
   border: 1px solid var(--liftie-border);
   border-radius: 99px;
   padding: 0.5rem 0.9rem;
-  background: #0a100c;
+  background: var(--liftie-canvas);
   color: var(--liftie-muted);
   font-size: 0.72rem;
 }
@@ -1747,7 +1602,7 @@ textarea {
 .safety-section {
   overflow: hidden;
   border-top: 1px solid var(--liftie-border);
-  background: #070b08;
+  background: var(--liftie-canvas);
 }
 
 .safety-section .section-heading {
@@ -1768,7 +1623,7 @@ textarea {
 
 .safety-orbit {
   position: absolute;
-  border: 1px solid rgba(53, 242, 123, 0.16);
+  border: 1px solid rgba(22, 172, 75, 0.16);
   border-radius: 50%;
 }
 
@@ -1779,7 +1634,7 @@ textarea {
   height: 0.55rem;
   border: 2px solid var(--liftie-green);
   border-radius: 50%;
-  background: #070b08;
+  background: var(--liftie-canvas);
   content: "";
 }
 
@@ -1791,9 +1646,9 @@ textarea {
   place-items: center;
   border: 1px solid var(--liftie-border);
   border-radius: 50%;
-  background: #0d150f;
+  background: var(--liftie-canvas);
   color: var(--liftie-green-muted);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.58rem;
 }
 
@@ -1859,10 +1714,10 @@ textarea {
   inset: 39%;
   display: grid;
   place-items: center;
-  border: 1px solid rgba(53, 242, 123, 0.28);
+  border: 1px solid rgba(22, 172, 75, 0.28);
   border-radius: 50%;
-  background: #101a13;
-  box-shadow: 0 0 45px rgba(53, 242, 123, 0.08);
+  background: var(--liftie-canvas);
+  box-shadow: 0 0 45px rgba(22, 172, 75, 0.08);
   text-align: center;
 }
 
@@ -1911,11 +1766,11 @@ textarea {
   grid-template-columns: auto 1fr;
   gap: 0.9rem;
   margin-top: 3rem;
-  border: 1px solid rgba(53, 242, 123, 0.18);
+  border: 1px solid rgba(22, 172, 75, 0.18);
   border-radius: 0.7rem;
   padding: 1rem;
   background: var(--liftie-green-soft);
-  color: #b9c8be;
+  color: var(--liftie-ink-soft);
 }
 
 .safety-note svg {
@@ -1942,7 +1797,7 @@ textarea {
   overflow: hidden;
   border: 1px solid var(--liftie-border-strong);
   border-radius: 0.9rem;
-  background: #0a100c;
+  background: var(--liftie-canvas);
 }
 
 .preference-controls {
@@ -2011,7 +1866,7 @@ textarea {
   height: 1.45rem;
   border: 1px solid var(--liftie-border-strong);
   border-radius: 99px;
-  background: #18211b;
+  background: var(--liftie-canvas);
   transition: background 180ms ease;
 }
 
@@ -2035,7 +1890,7 @@ textarea {
 
 .toggle-control input:checked + .switch {
   border-color: var(--liftie-green);
-  background: rgba(53, 242, 123, 0.22);
+  background: rgba(22, 172, 75, 0.22);
 }
 
 .toggle-control input:checked + .switch span {
@@ -2075,7 +1930,7 @@ textarea {
 
 .range-control strong {
   color: var(--liftie-green);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.75rem;
 }
 
@@ -2090,7 +1945,7 @@ textarea {
   display: flex;
   justify-content: space-between;
   color: var(--liftie-dim);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.58rem;
 }
 
@@ -2165,8 +2020,8 @@ textarea {
   background:
     linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    radial-gradient(circle, rgba(53, 242, 123, 0.1), transparent 52%),
-    #080d09;
+    radial-gradient(circle, rgba(22, 172, 75, 0.1), transparent 52%),
+    var(--liftie-canvas);
   background-size: 48px 48px, 48px 48px, auto, auto;
 }
 
@@ -2174,11 +2029,11 @@ textarea {
   position: relative;
   width: min(80vw, 18rem);
   aspect-ratio: 1;
-  border: 1px solid rgba(53, 242, 123, 0.18);
+  border: 1px solid rgba(22, 172, 75, 0.18);
   border-radius: 50%;
   box-shadow:
-    0 0 0 2.5rem rgba(53, 242, 123, 0.025),
-    0 0 0 5rem rgba(53, 242, 123, 0.012);
+    0 0 0 2.5rem rgba(22, 172, 75, 0.025),
+    0 0 0 5rem rgba(22, 172, 75, 0.012);
 }
 
 .result-orbit > span {
@@ -2187,7 +2042,7 @@ textarea {
   height: 0.62rem;
   border: 2px solid var(--liftie-green);
   border-radius: 50%;
-  background: #080d09;
+  background: var(--liftie-canvas);
 }
 
 .result-orbit > span:nth-child(1) { top: 8%; left: 28%; }
@@ -2201,9 +2056,9 @@ textarea {
   inset: 34%;
   display: grid;
   place-items: center;
-  border: 1px solid rgba(53, 242, 123, 0.32);
+  border: 1px solid rgba(22, 172, 75, 0.32);
   border-radius: 50%;
-  background: #111c14;
+  background: var(--liftie-canvas);
   color: var(--liftie-green);
 }
 
@@ -2248,7 +2103,7 @@ textarea {
   padding: 0.38rem 0.6rem;
   background: rgba(5, 8, 6, 0.7);
   color: var(--liftie-dim);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.55rem;
 }
 
@@ -2258,8 +2113,8 @@ textarea {
   overflow: hidden;
   border-top: 1px solid var(--liftie-border);
   background:
-    radial-gradient(circle at 78% 22%, rgba(53, 242, 123, 0.075), transparent 22rem),
-    #0a0f0c;
+    radial-gradient(circle at 78% 22%, rgba(22, 172, 75, 0.075), transparent 22rem),
+    var(--liftie-canvas);
 }
 
 .pricing-heading-row {
@@ -2284,7 +2139,7 @@ textarea {
 .rate-display strong {
   margin-block: 0.3rem;
   color: var(--liftie-white);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: clamp(2.8rem, 9vw, 5.2rem);
   font-weight: 400;
   letter-spacing: -0.05em;
@@ -2462,7 +2317,7 @@ textarea {
   padding: 0.7rem 0.8rem;
   background: transparent;
   color: #07110a;
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.9rem;
 }
 
@@ -2487,7 +2342,7 @@ textarea {
   overflow: hidden;
   padding: 1.5rem;
   background:
-    radial-gradient(circle at 50% 30%, rgba(53, 242, 123, 0.12), transparent 40%),
+    radial-gradient(circle at 50% 30%, rgba(22, 172, 75, 0.12), transparent 40%),
     #09100b;
   color: var(--liftie-text);
 }
@@ -2561,7 +2416,7 @@ textarea {
   display: block;
   margin-block: 0.45rem;
   color: var(--liftie-white);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: clamp(2.1rem, 9vw, 4.4rem);
   font-weight: 400;
   letter-spacing: -0.06em;
@@ -2578,7 +2433,7 @@ textarea {
 .per-trip p,
 .monthly-result p {
   color: var(--liftie-dim);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.65rem;
 }
 
@@ -2592,7 +2447,7 @@ textarea {
   display: block;
   margin-top: 0.5rem;
   color: var(--liftie-green);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: clamp(1.65rem, 7vw, 3.1rem);
   font-weight: 400;
   letter-spacing: -0.05em;
@@ -2606,7 +2461,7 @@ textarea {
 /* Route examples */
 
 .route-examples {
-  background: #080d09;
+  background: var(--liftie-canvas);
 }
 
 .routes-heading-row {
@@ -2624,7 +2479,7 @@ textarea {
   border-radius: 99px;
   padding: 0.4rem 0.7rem;
   color: var(--liftie-muted);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.6rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -2704,8 +2559,8 @@ textarea {
   min-height: 21rem;
   overflow: hidden;
   background:
-    radial-gradient(circle at 58% 35%, rgba(53, 242, 123, 0.08), transparent 15rem),
-    #0a100c;
+    radial-gradient(circle at 58% 35%, rgba(22, 172, 75, 0.08), transparent 15rem),
+    var(--liftie-canvas);
 }
 
 .example-map svg {
@@ -2723,7 +2578,7 @@ textarea {
   stroke-dashoffset: 1000;
   stroke-linecap: round;
   stroke-width: 3;
-  filter: drop-shadow(0 0 5px rgba(53, 242, 123, 0.4));
+  filter: drop-shadow(0 0 5px rgba(22, 172, 75, 0.4));
   animation: draw-route 900ms ease forwards;
   vector-effect: non-scaling-stroke;
 }
@@ -2749,7 +2604,7 @@ textarea {
 
 .example-place small {
   color: var(--liftie-dim);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.52rem;
 }
 
@@ -2770,7 +2625,7 @@ textarea {
 
 .example-metrics {
   display: grid;
-  background: #0c130e;
+  background: var(--liftie-canvas);
 }
 
 .example-metrics > div {
@@ -2791,7 +2646,7 @@ textarea {
 
 .example-metrics strong {
   color: var(--liftie-white);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.92rem;
   font-weight: 400;
 }
@@ -2814,7 +2669,7 @@ textarea {
 
 .monthly-section {
   border-top: 1px solid var(--liftie-border);
-  background: #050806;
+  background: var(--liftie-canvas);
 }
 
 .monthly-heading-row {
@@ -2873,7 +2728,7 @@ textarea {
 
 .comparison-item > strong {
   color: var(--liftie-white);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.72rem;
   font-weight: 400;
 }
@@ -2906,7 +2761,7 @@ textarea {
 .liftie .bar-track span {
   min-width: 3%;
   background: var(--liftie-green);
-  box-shadow: 0 0 12px rgba(53, 242, 123, 0.35);
+  box-shadow: 0 0 12px rgba(22, 172, 75, 0.35);
 }
 
 .comparison-summary {
@@ -2947,7 +2802,7 @@ textarea {
 
 .driver-recovery-summary > strong {
   color: var(--liftie-green);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 1.1rem;
   font-weight: 400;
 }
@@ -2958,8 +2813,8 @@ textarea {
   overflow: hidden;
   border-top: 1px solid var(--liftie-border);
   background:
-    radial-gradient(circle at 85% 60%, rgba(53, 242, 123, 0.06), transparent 28rem),
-    #0a100c;
+    radial-gradient(circle at 85% 60%, rgba(22, 172, 75, 0.06), transparent 28rem),
+    var(--liftie-canvas);
 }
 
 .wallet-heading-row {
@@ -2983,7 +2838,7 @@ textarea {
 .point-value strong {
   margin-block: 0.45rem;
   color: var(--liftie-white);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: clamp(1.55rem, 5vw, 2.5rem);
   font-weight: 400;
   letter-spacing: -0.04em;
@@ -3017,7 +2872,7 @@ textarea {
 
 .wallet-step-number {
   color: var(--liftie-green-muted);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.7rem;
 }
 
@@ -3048,7 +2903,7 @@ textarea {
   background:
     linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    #0d150f;
+    var(--liftie-canvas);
   background-size: 44px 44px;
 }
 
@@ -3093,7 +2948,7 @@ textarea {
 .wallet-total strong {
   margin-block: 0.4rem;
   color: var(--liftie-green);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: clamp(2.5rem, 10vw, 5rem);
   font-weight: 400;
   letter-spacing: -0.06em;
@@ -3104,7 +2959,7 @@ textarea {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 0.65rem;
-  border: 1px solid rgba(53, 242, 123, 0.18);
+  border: 1px solid rgba(22, 172, 75, 0.18);
   border-radius: 0.55rem;
   padding: 0.8rem;
   background: var(--liftie-green-soft);
@@ -3136,9 +2991,9 @@ textarea {
   margin-top: 0.4rem;
   border-radius: 99px;
   padding: 0.25rem 0.45rem;
-  background: rgba(53, 242, 123, 0.12);
+  background: rgba(22, 172, 75, 0.12);
   color: var(--liftie-green-muted);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.52rem;
   text-transform: uppercase;
 }
@@ -3167,7 +3022,7 @@ textarea {
 }
 
 .ledger-icon.complete {
-  border-color: rgba(53, 242, 123, 0.18);
+  border-color: rgba(22, 172, 75, 0.18);
   color: var(--liftie-green);
 }
 
@@ -3188,7 +3043,7 @@ textarea {
 
 .wallet-ledger > div > strong {
   color: var(--liftie-green-muted);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-weight: 400;
 }
 
@@ -3570,7 +3425,7 @@ textarea {
 
 .legal-section {
   border-top: 1px solid var(--liftie-border);
-  background: #0a0f0c;
+  background: var(--liftie-canvas);
 }
 
 .legal-grid {
@@ -3663,7 +3518,7 @@ textarea {
 /* FAQ */
 
 .faq-section {
-  background: #050806;
+  background: var(--liftie-canvas);
 }
 
 .faq-grid {
@@ -3701,7 +3556,7 @@ textarea {
   border: 0;
   padding: 0.8rem 0;
   background: transparent;
-  color: #cdd6d0;
+  color: var(--liftie-ink-soft);
   cursor: pointer;
   font-size: 0.86rem;
   font-weight: 650;
@@ -3748,8 +3603,8 @@ textarea {
   padding-block: clamp(7rem, 12vw, 12rem);
   border-top: 1px solid var(--liftie-border);
   background:
-    radial-gradient(circle at 74% 50%, rgba(53, 242, 123, 0.12), transparent 24rem),
-    #080d09;
+    radial-gradient(circle at 74% 50%, rgba(22, 172, 75, 0.12), transparent 24rem),
+    var(--liftie-canvas);
 }
 
 .final-cta::before {
@@ -3793,7 +3648,7 @@ textarea {
 .final-confirmed {
   stroke: var(--liftie-green);
   stroke-width: 4 !important;
-  filter: drop-shadow(0 0 5px rgba(53, 242, 123, 0.45));
+  filter: drop-shadow(0 0 5px rgba(22, 172, 75, 0.45));
 }
 
 .final-match-node {
@@ -3808,7 +3663,7 @@ textarea {
   border: 1px solid var(--liftie-green);
   border-radius: 50%;
   background: var(--liftie-black);
-  box-shadow: 0 0 0 0.7rem rgba(53, 242, 123, 0.08);
+  box-shadow: 0 0 0 0.7rem rgba(22, 172, 75, 0.08);
   color: var(--liftie-green);
 }
 
@@ -3848,7 +3703,7 @@ textarea {
   position: relative;
   overflow: hidden;
   border-top: 1px solid var(--liftie-border);
-  background: #050806;
+  background: var(--liftie-canvas);
 }
 
 .footer-route {
@@ -3874,7 +3729,7 @@ textarea {
   height: 0.5rem;
   border: 1px solid var(--liftie-green);
   border-radius: 50%;
-  background: #050806;
+  background: var(--liftie-canvas);
 }
 
 .footer-route span:first-child {
@@ -3929,7 +3784,7 @@ textarea {
 .footer-label {
   margin: 0 0 0.35rem;
   color: var(--liftie-text);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.62rem;
   letter-spacing: 0.07em;
   text-transform: uppercase;
@@ -3946,7 +3801,7 @@ textarea {
   border-top: 1px solid var(--liftie-border);
   padding-block: 1.2rem;
   color: var(--liftie-dim);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.58rem;
 }
 
@@ -3978,7 +3833,7 @@ textarea {
   overflow: hidden;
   border: 1px solid var(--liftie-border-strong);
   border-radius: 1rem 1rem 0 0;
-  background: #0d140f;
+  background: var(--liftie-canvas);
   box-shadow: 0 -30px 90px rgba(0, 0, 0, 0.45);
 }
 
@@ -3988,7 +3843,7 @@ textarea {
   gap: 1rem;
   border-bottom: 1px solid var(--liftie-border);
   padding: 1.1rem 1.1rem 1rem;
-  background: #101812;
+  background: var(--liftie-canvas);
 }
 
 .modal-heading .eyebrow {
@@ -4047,7 +3902,7 @@ textarea {
 
 .form-section-title > span {
   color: var(--liftie-green-muted);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 0.7rem;
 }
 
@@ -4070,7 +3925,7 @@ textarea {
 .join-form .form-field input,
 .join-form .form-field select {
   border-color: var(--liftie-border-strong);
-  background: #111a13;
+  background: var(--liftie-canvas);
   color: var(--liftie-white);
 }
 
@@ -4081,7 +3936,7 @@ textarea {
 }
 
 .join-form .form-field option {
-  background: #111a13;
+  background: var(--liftie-canvas);
 }
 
 .join-form .field-hint {
@@ -4116,7 +3971,7 @@ textarea {
 }
 
 .role-picker label.selected {
-  border-color: rgba(53, 242, 123, 0.45);
+  border-color: rgba(22, 172, 75, 0.45);
   background: var(--liftie-green-soft);
   color: var(--liftie-white);
 }
@@ -4168,7 +4023,7 @@ textarea {
 }
 
 .weekday-field label.selected {
-  border-color: rgba(53, 242, 123, 0.4);
+  border-color: rgba(22, 172, 75, 0.4);
   background: var(--liftie-green-soft);
   color: var(--liftie-green-muted);
 }
@@ -4209,7 +4064,7 @@ textarea {
 }
 
 .join-form .submission-message.status-success {
-  border-color: rgba(53, 242, 123, 0.24);
+  border-color: rgba(22, 172, 75, 0.24);
   background: var(--liftie-green-soft);
   color: #b5d9c0;
 }
@@ -4245,10 +4100,6 @@ textarea {
 /* Responsive enhancements */
 
 @media (min-width: 480px) {
-  .hero-actions .button,
-  .final-actions .button {
-    width: auto;
-  }
 
   .match-profile {
     grid-template-columns: auto 1fr auto;
@@ -4290,18 +4141,8 @@ textarea {
     margin-left: 0.75rem;
   }
 
-  .hero {
-    padding-top: calc(var(--header-height) + 3.5rem);
-    padding-bottom: 6rem;
-  }
 
-  .hero-grid {
-    gap: 5rem;
-  }
 
-  .hero-actions .button {
-    min-width: 10rem;
-  }
 
   .distinction-list article {
     grid-template-columns: 3rem 1fr;
@@ -4418,7 +4259,7 @@ textarea {
     display: inline-flex;
     min-height: 2.75rem;
     align-items: center;
-    color: #a9b4ac;
+    color: var(--liftie-ink-soft);
     font-size: clamp(0.66rem, 0.74vw, 0.78rem);
     font-weight: 650;
     white-space: nowrap;
@@ -4459,39 +4300,10 @@ textarea {
     display: none;
   }
 
-  .hero {
-    min-height: max(48rem, 100svh);
-    padding-block: calc(var(--header-height) + 3rem) 5rem;
-  }
 
-  .hero-grid {
-    grid-template-columns: minmax(0, 0.94fr) minmax(31rem, 1.06fr);
-    align-items: center;
-    gap: clamp(2.5rem, 5vw, 6.5rem);
-  }
 
-  .hero-copy {
-    padding-block: 2rem;
-  }
 
-  .hero h1 {
-    font-size: clamp(5.1rem, 7.2vw, 8.1rem);
-  }
 
-  .hero-scroll-cue {
-    position: absolute;
-    z-index: 3;
-    bottom: 1.7rem;
-    left: var(--page-gutter);
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    color: var(--liftie-dim);
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-  }
 
   .scroll-line {
     width: 5rem;
@@ -4547,7 +4359,7 @@ textarea {
     padding: 0.8rem 1.1rem;
     border-right: 1px solid var(--liftie-border);
     color: var(--liftie-muted);
-    font-family: "IBM Plex Mono", monospace;
+    font-family: "Manrope Variable", sans-serif;
     font-size: 0.61rem;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -4579,7 +4391,7 @@ textarea {
 
   .comparison-row > div:last-child {
     border-right: 0;
-    background: rgba(53, 242, 123, 0.025);
+    background: rgba(22, 172, 75, 0.025);
   }
 
   .comparison-row > div:first-child {
@@ -4612,8 +4424,8 @@ textarea {
     background:
       linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-      radial-gradient(circle, rgba(53, 242, 123, 0.1), transparent 45%),
-      #0a110c;
+      radial-gradient(circle, rgba(22, 172, 75, 0.1), transparent 45%),
+      var(--liftie-canvas);
     background-size: 54px 54px, 54px 54px, auto, auto;
   }
 
@@ -4634,7 +4446,7 @@ textarea {
 
   .core-ring {
     position: absolute;
-    border: 1px solid rgba(53, 242, 123, 0.2);
+    border: 1px solid rgba(22, 172, 75, 0.2);
     border-radius: 50%;
   }
 
@@ -4659,7 +4471,7 @@ textarea {
     height: 0.6rem;
     border: 2px solid var(--liftie-green);
     border-radius: 50%;
-    background: #0a110c;
+    background: var(--liftie-canvas);
     content: "";
   }
 
@@ -4672,7 +4484,7 @@ textarea {
 
   .journey-core strong {
     color: var(--liftie-green);
-    font-family: "IBM Plex Mono", monospace;
+    font-family: "Manrope Variable", sans-serif;
     font-size: 4rem;
     font-weight: 400;
     line-height: 1;
@@ -4691,7 +4503,7 @@ textarea {
     display: flex;
     justify-content: space-between;
     color: var(--liftie-dim);
-    font-family: "IBM Plex Mono", monospace;
+    font-family: "Manrope Variable", sans-serif;
     font-size: 0.58rem;
   }
 
@@ -4705,7 +4517,7 @@ textarea {
     bottom: 0;
     left: 1.15rem;
     width: 1px;
-    background: linear-gradient(var(--liftie-green), rgba(53, 242, 123, 0.06));
+    background: linear-gradient(var(--liftie-green), rgba(22, 172, 75, 0.06));
     content: "";
   }
 
@@ -4996,9 +4808,6 @@ textarea {
 }
 
 @media (min-width: 1280px) {
-  .hero-grid {
-    grid-template-columns: minmax(0, 0.88fr) minmax(36rem, 1.12fr);
-  }
 
   .header-inner {
     gap: 1rem;
@@ -5036,9 +4845,6 @@ textarea {
 }
 
 @media (max-width: 430px) {
-  .hero h1 {
-    font-size: clamp(3.2rem, 15.5vw, 4.3rem);
-  }
 
   .phone-stage {
     padding-inline: 0.8rem;
@@ -5084,5 +4890,406 @@ textarea {
   .route-overlap,
   .example-map path {
     stroke-dashoffset: 0;
+  }
+}
+
+/* Real Liftie app tour */
+
+.product-preview-section {
+  overflow: hidden;
+  background: #f4f7f5;
+  color: #142018;
+}
+
+.product-preview-section .section-heading {
+  margin-bottom: clamp(2.75rem, 6vw, 4.75rem);
+}
+
+.product-preview-section .section-heading h2 {
+  color: #08110b;
+}
+
+.product-preview-section .section-heading-copy {
+  color: #526057;
+}
+
+.product-preview-section .eyebrow {
+  color: #17713a;
+}
+
+.product-preview {
+  display: grid;
+  margin-inline: calc(var(--page-gutter) * -1);
+  outline: none;
+}
+
+.product-preview:focus-visible {
+  border-radius: 0.25rem;
+  outline: 3px solid #168c40;
+  outline-offset: 5px;
+}
+
+.phone-stage {
+  position: relative;
+  display: grid;
+  min-height: 0;
+  place-items: center;
+  overflow: hidden;
+  margin: 0;
+  padding: clamp(2.5rem, 9vw, 4.5rem) var(--page-gutter);
+  background:
+    linear-gradient(rgba(104, 255, 155, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(104, 255, 155, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 50% 44%, rgba(22, 172, 75, 0.13), transparent 42%),
+    var(--liftie-canvas);
+  background-size: 56px 56px, 56px 56px, auto, auto;
+}
+
+.phone-stage::after {
+  position: absolute;
+  right: 15%;
+  bottom: 5%;
+  left: 15%;
+  height: 12%;
+  border-radius: 50%;
+  background: rgba(22, 172, 75, 0.13);
+  content: "";
+  filter: blur(38px);
+  pointer-events: none;
+}
+
+.phone-shell {
+  position: relative;
+  z-index: 2;
+  width: min(82vw, 22rem);
+  min-height: 0;
+  overflow: visible;
+  margin: 0;
+  border: 1px solid rgba(185, 255, 208, 0.2);
+  border-radius: 2.85rem;
+  padding: 6px;
+  background: linear-gradient(145deg, #3d4841 0%, #080b09 22%, #111713 78%, #2b5d3b 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.22),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.9),
+    0 40px 85px rgba(0, 0, 0, 0.52),
+    0 20px 56px rgba(31, 180, 82, 0.12);
+  color: #0a120d;
+}
+
+.phone-shell::before {
+  position: absolute;
+  z-index: -1;
+  inset: -1px;
+  border-radius: inherit;
+  box-shadow: 0 0 0 1px rgba(22, 172, 75, 0.08);
+  content: "";
+  pointer-events: none;
+}
+
+.phone-screen {
+  position: relative;
+  aspect-ratio: 352 / 773;
+  overflow: hidden;
+  border-radius: 2.45rem;
+  background: #f7f8f4;
+  isolation: isolate;
+  touch-action: pan-y pinch-zoom;
+}
+
+.phone-screen-image {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center top;
+  user-select: none;
+  -webkit-user-drag: none;
+  animation: app-screen-next 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.phone-screen-image[data-direction="previous"] {
+  animation-name: app-screen-previous;
+}
+
+@keyframes app-screen-next {
+  from {
+    transform: translate3d(4%, 0.7%, 0) scale(1.006);
+    opacity: 0.16;
+  }
+  to {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes app-screen-previous {
+  from {
+    transform: translate3d(-4%, 0.7%, 0) scale(1.006);
+    opacity: 0.16;
+  }
+  to {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+.preview-copy {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  padding: 2.25rem var(--page-gutter) 0;
+  background: #f4f7f5;
+}
+
+.preview-description {
+  display: block;
+  min-height: 11.5rem;
+  padding: 0;
+}
+
+.preview-counter {
+  color: #526057;
+}
+
+.preview-description h3 {
+  max-width: 17ch;
+  margin: 0.8rem 0 0.85rem;
+  color: #07100a;
+  font-size: clamp(2rem, 9vw, 3.7rem);
+  font-weight: 580;
+  letter-spacing: -0.055em;
+  line-height: 1.03;
+}
+
+.preview-description p {
+  max-width: 35rem;
+  margin-bottom: 0;
+  color: #536058;
+}
+
+.preview-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.preview-controls button {
+  display: inline-flex;
+  min-width: 8.25rem;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border: 1px solid rgba(8, 17, 11, 0.17);
+  border-radius: 999px;
+  padding: 0.65rem 1rem;
+  background: #ffffff;
+  color: #132018;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 750;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.preview-controls button:hover {
+  transform: translateY(-2px);
+  border-color: #278b48;
+  background: #eef7ee;
+}
+
+.preview-controls svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.preview-tabs {
+  display: grid;
+  width: fit-content;
+  overflow: visible;
+  grid-template-columns: repeat(4, 2.75rem);
+  gap: 0.5rem;
+  margin: 1.75rem auto 0;
+  border: 0;
+}
+
+.preview-tabs button {
+  position: relative;
+  display: grid;
+  width: 2.75rem;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  place-items: center;
+  border: 1px solid rgba(8, 17, 11, 0.16);
+  border-radius: 50%;
+  padding: 0;
+  background: #ffffff;
+  color: #536058;
+  cursor: pointer;
+  text-align: center;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.preview-tabs button::after {
+  display: none;
+}
+
+.preview-tabs button:hover {
+  transform: translateY(-2px);
+  border-color: #278b48;
+}
+
+.preview-tabs button.is-active {
+  border-color: #166f38;
+  background: #173d25;
+  box-shadow: 0 0 0 3px #cde7cf;
+  color: #ffffff;
+  font-weight: 750;
+}
+
+.preview-tab-number,
+.preview-tabs .mono {
+  color: inherit;
+  font-size: 0.61rem;
+  letter-spacing: 0.04em;
+}
+
+.preview-tab-label {
+  display: none;
+}
+
+@media (min-width: 480px) {
+  .preview-tabs {
+    grid-template-columns: repeat(8, 2.75rem);
+  }
+}
+
+@media (min-width: 960px) {
+  .product-preview {
+    grid-template-areas: "copy phone";
+    grid-template-columns: minmax(0, 0.9fr) minmax(30rem, 1.1fr);
+    margin-inline: 0;
+  }
+
+  .phone-stage {
+    grid-area: phone;
+    min-height: 54rem;
+    margin-right: calc(var(--page-gutter) * -1);
+    padding: 3.5rem var(--page-gutter);
+  }
+
+  .phone-shell {
+    width: min(100%, 22rem);
+  }
+
+  .preview-copy {
+    grid-area: copy;
+    min-height: 54rem;
+    padding: 0 clamp(2.5rem, 5vw, 5rem) 0 0;
+  }
+
+  .preview-tabs {
+    order: -1;
+    width: 100%;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin: 0;
+    border-top: 1px solid rgba(5, 8, 6, 0.14);
+  }
+
+  .preview-tabs button {
+    width: 100%;
+    min-width: 0;
+    min-height: 3.6rem;
+    grid-template-columns: 2.75rem 1fr;
+    place-items: center start;
+    gap: 0.6rem;
+    border: 0;
+    border-bottom: 1px solid rgba(5, 8, 6, 0.12);
+    border-radius: 0;
+    padding: 0.8rem 0.65rem;
+    background: transparent;
+    text-align: left;
+  }
+
+  .preview-tabs button:hover {
+    transform: none;
+    background: rgba(21, 151, 69, 0.055);
+  }
+
+  .preview-tabs button.is-active {
+    border-color: transparent;
+    background: linear-gradient(90deg, rgba(21, 151, 69, 0.12), transparent 78%);
+    box-shadow: inset 3px 0 #168c40;
+    color: #09130c;
+  }
+
+  .preview-tab-number,
+  .preview-tabs .mono {
+    color: #526057;
+  }
+
+  .preview-tabs button.is-active .preview-tab-number {
+    color: #126b33;
+  }
+
+  .preview-tab-label {
+    display: block;
+    color: inherit;
+    font-size: 0.88rem;
+  }
+
+  .preview-description {
+    min-height: 15rem;
+    margin-top: auto;
+    padding-top: 2rem;
+  }
+
+  .preview-controls {
+    margin: 1.25rem 0 0;
+  }
+}
+
+@media (min-width: 1280px) {
+  .product-preview {
+    grid-template-columns: minmax(0, 0.86fr) minmax(34rem, 1.14fr);
+  }
+
+  .phone-shell {
+    width: min(100%, 23rem);
+  }
+}
+
+@media (max-width: 374px) {
+  .phone-shell {
+    width: min(80vw, 20rem);
+    border-radius: 2.4rem;
+    padding: 5px;
+  }
+
+  .phone-screen {
+    border-radius: 2.05rem;
+  }
+
+  .preview-copy {
+    padding-top: 1.85rem;
+  }
+
+  .preview-description h3 {
+    font-size: 1.95rem;
+  }
+
+  .preview-controls button {
+    min-width: 0;
+    flex: 1;
   }
 }

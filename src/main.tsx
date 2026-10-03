@@ -4,6 +4,7 @@ import "@fontsource/ibm-plex-mono/latin-400.css";
 import "@fontsource/ibm-plex-mono/latin-500.css";
 import App from "./App";
 import "./styles/globals.css";
+import "./styles/commute.css";
 
 document
   .getElementById("canonical-url")

@@ -2,7 +2,7 @@
 
 Liftie is a premium prelaunch website for a South African, organisation-verified commute-sharing network. The experience explains how recurring lift clubs differ from e-hailing and public social media groups, while giving riders, drivers, and organisations clear ways to register interest.
 
-The central design idea is the Verified Corridor. A recurring route line connects organisation access, routine matching, driver consent, points reservation, journey completion, and the final network invitation.
+The landing page uses a warm-white, forest-green, and orange identity. A responsive SVG road arch frames the supplied commuter photograph, with a real Liftie request screen in a graphite phone frame. The route line draws once and respects reduced motion.
 
 ## Technology
 
@@ -52,6 +52,7 @@ Copy `.env.example` to `.env.local` and configure:
 ```env
 VITE_LIFTIE_JOIN_ENDPOINT=https://your-service.example/join
 VITE_LIFTIE_WHITELIST_ENDPOINT=https://your-service.example/whitelist
+VITE_LIFTIE_SIGN_IN_URL=https://your-app.example/sign-in
 ```
 
 Both endpoints receive structured JSON with `Content-Type: application/json`.
@@ -62,6 +63,8 @@ Both endpoints receive structured JSON with `Content-Type: application/json`.
 The frontend does not contain secrets. The receiving service must perform its own validation, abuse protection, rate limiting, storage controls, privacy handling, and notification workflow.
 
 When an endpoint is not configured, the form does not pretend to submit. It keeps the entered data visible and explains that registration is not connected yet.
+
+The optional sign-in URL connects the header to the real application. If it is absent, the sign-in action explains that account access is not connected and offers network registration. Privacy, terms, and contact destinations remain marked as coming soon until approved content and destinations are supplied.
 
 ## Project structure
 
@@ -87,18 +90,18 @@ public/
 
 ## Design system
 
-- Black establishes authority and depth.
-- White sections create editorial rhythm and improve form clarity.
-- Green is reserved for route activity, verified organisation access, confirmed states, and cost-sharing values.
+- Warm white and pale mint create editorial rhythm and improve form clarity.
+- Forest green establishes structure in the driver section, calculator result, final invitation, and footer.
+- Orange marks the co-funded headline, route movement, and destination details.
 - SVG and CSS route lines carry the product story without imitating a commercial map.
 - Cards are used only where containment clarifies an interface or decision.
-- Product screens are HTML and CSS previews, not claims of a live application.
+- Product screens use supplied app screenshots. Their source configuration is shared by the hero, rider and driver sections, wallet, and interactive app tour.
 
 ## Accessibility
 
 The implementation includes semantic landmarks, one `h1`, ordered headings, a skip link, labelled form fields, accessible errors, live result regions, focus-visible styling, keyboard tabs, accordion controls, a modal focus trap, escape handling, focus restoration, mobile scroll locking, and reduced-motion support.
 
-The visual audit checks the requested widths from 320 px through 1440 px and reports horizontal overflow. A full WCAG audit with assistive technology and representative users should still be completed before public launch.
+The visual audit checks the requested widths from 320 px through 1920 px, plus 667 by 375 and 844 by 390 landscape layouts and reports horizontal overflow. A full WCAG audit with assistive technology and representative users should still be completed before public launch.
 
 ## Content and legal review
 
